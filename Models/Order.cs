@@ -14,6 +14,6 @@ namespace ServiceSystem.Models
         public MenuItem MenuItem { get; set; }
         public decimal TotalValue { get; set; }
         public DateTime CreationDate { get; set; }
-        public DateTime ClosedDate { get; set; }
+        public DateTime? ClosedDate { get; set; }
     }
 }
