@@ -6,6 +6,7 @@ namespace ServiceSystem.Data
     public class AppDbContext : DbContext
     {
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<RestaurantTable> RestaurantTables { get; set; }
 

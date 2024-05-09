@@ -6,7 +6,7 @@ using ServiceSystem.Mapping;
 using ServiceSystem.Models;
 using ServiceSystem.Models.Request;
 
-namespace ServiceSystem.Controllers 
+namespace ServiceSystem.Controllers
 {
     [ApiController]
     [Route("v1/orders")]
@@ -21,30 +21,41 @@ namespace ServiceSystem.Controllers
             _orderMapping = orderMapping;
         }
 
-[HttpPost("insertOrder")]
-public IActionResult InsertOrder([FromBody] OrderRequest orderRequest)
-{
-    if (orderRequest == null)
-    {
-        return BadRequest("Pedido não pode ser nulo");
-    }
-
-    try
-    {
-        Order order = _orderMapping.Map(orderRequest);
-        MenuItem menuItem = _context.MenuItems.FirstOrDefault(m => m.Id == order.MenuItemId);
-        if (menuItem == null)
+        [HttpPost("insertOrder")]
+        public IActionResult InsertOrder([FromBody] CreateOrderRequest createOrderRequest)
         {
-            return BadRequest("Pedido inválido.");
-        }
-        order.TotalValue = menuItem.Value;
+            if (createOrderRequest == null)
+            {
+                return BadRequest("Pedido não pode ser nulo");
+            }
 
-        return Ok("ok");
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, $"Ocorreu um erro: {ex.Message}");
-    }
-}
+            try
+            {
+                // Mapear os dados do pedido recebidos na solicitação HTTP para a entidade de pedido
+                Order order = _orderMapping.Map(createOrderRequest);
+
+                // Aqui você pode implementar a lógica para calcular o total do pedido com base nos itens do pedido
+                decimal totalValue = 0;
+                foreach (var item in createOrderRequest.OrderItems)
+                {
+                    MenuItem menuItem = _context.MenuItems.FirstOrDefault(m => m.MenuItemId == item.MenuItemId);
+                    totalValue += menuItem.Price * item.Quantity;
+                }
+                order.TotalValue = totalValue;
+
+                // Adicionar o pedido ao contexto do banco de dados
+                _context.Orders.Add(order);
+
+                // Salvar as alterações no banco de dados
+                _context.SaveChanges();
+
+                // Retornar o pedido criado com sucesso
+                return Ok(order);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Ocorreu um erro: {ex.Message}");
+            }
+        }
     }
 }

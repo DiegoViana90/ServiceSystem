@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F2b/uAk7r/tM8utLdRhvYJgFqm7SybCNhyGeTRfEK3Wvx+Vam7yu+HAejtQaOdRpe4Vv7NrJUB3V5wZ/tiRC3Q==",
+  "dgSpecHash": "Q8I1TgkWsWw4zEq20pE3F915hmykDqGbR0qK/3rUrN9dC5VrzN3vubkKc9x5AS6jpL2bsp8HTLK4PC7zSyWkOQ==",
   "success": true,
-  "projectFilePath": "c:\\dev\\ServiceSystem\\ServiceSystem.csproj",
+  "projectFilePath": "C:\\dev\\ServiceSystem\\ServiceSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Diego\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Diego\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
