@@ -77,6 +77,18 @@ namespace ServiceSystem.Migrations
                 name: "IX_Orders_RestaurantTableId",
                 table: "Orders",
                 column: "RestaurantTableId");
+
+            
+            migrationBuilder.InsertData(
+                table: "MenuItems",
+                columns: new[] { "Id", "Name", "MenuType", "StockQuantity", "Value" },
+                values: new object[,]
+                {
+                    { 1, "Hamburger", 1, 30, 10.00m },
+                    { 2, "Pizza", 1, 30, 15.00m },
+                    { 3, "Soda", 2, 30, 3.00m },
+                    { 4, "Juice", 2, 30, 4.00m }
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
