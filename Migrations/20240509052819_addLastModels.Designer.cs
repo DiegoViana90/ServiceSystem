@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ServiceSystem.Data;
 
 namespace ServiceSystem.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240509052819_addLastModels")]
+    partial class addLastModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,13 +24,13 @@ namespace ServiceSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("MenuType")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("StockQuantity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Value")
@@ -45,32 +47,16 @@ namespace ServiceSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("ClosedDate")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("MenuItemId")
+                    b.Property<bool>("Done")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("OpenOrder")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("OrderType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("RestaurantTableId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal>("TotalValue")
+                    b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MenuItemId");
-
-                    b.HasIndex("RestaurantTableId");
 
                     b.ToTable("Orders");
                 });
@@ -90,25 +76,6 @@ namespace ServiceSystem.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RestaurantTables");
-                });
-
-            modelBuilder.Entity("ServiceSystem.Models.Order", b =>
-                {
-                    b.HasOne("ServiceSystem.Models.MenuItem", "MenuItem")
-                        .WithMany()
-                        .HasForeignKey("MenuItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ServiceSystem.Models.RestaurantTable", "RestaurantTable")
-                        .WithMany()
-                        .HasForeignKey("RestaurantTableId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MenuItem");
-
-                    b.Navigation("RestaurantTable");
                 });
 #pragma warning restore 612, 618
         }
