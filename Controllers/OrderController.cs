@@ -21,49 +21,59 @@ namespace ServiceSystem.Controllers
             _orderMapping = orderMapping;
         }
 
-        [HttpPost("insertOrder")]
-        public IActionResult InsertOrder([FromBody] CreateOrderRequest createOrderRequest)
+       [HttpPost("insertOrder")]
+public IActionResult InsertOrder([FromBody] CreateOrderRequest createOrderRequest)
+{
+    if (createOrderRequest == null)
+    {
+        return BadRequest("Pedido não pode ser nulo");
+    }
+
+    try
+    {
+        // Verificar se existe um pedido aberto para a mesa fornecida
+        Order existingOrder = _context.Orders.FirstOrDefault(o => o.OrderStatus && o.ClosedDate == null && o.RestaurantTableId == createOrderRequest.RestaurantTableId);
+
+        if (existingOrder != null)
         {
-            if (createOrderRequest == null)
-            {
-                return BadRequest("Pedido não pode ser nulo");
-            }
+            // Atualizar o pedido existente com os novos dados
+            _orderMapping.Map(createOrderRequest, existingOrder);
 
-            try
-            {
-                Order existingOrder = _context.Orders.FirstOrDefault(o => o.OrderStatus && o.ClosedDate == null && o.RestaurantTableId == createOrderRequest.RestaurantTableId);
+            // Calcular o TotalValue do novo pedido com base nos itens do pedido
+            decimal totalValue = CalculateTotalValue(createOrderRequest);
 
-                if (existingOrder != null)
-                {
-                    _orderMapping.Map(createOrderRequest, existingOrder);
+            // Acrescentar o valor do novo pedido ao TotalValue existente
+            existingOrder.TotalValue += totalValue;
 
-                    decimal totalValue = CalculateTotalValue(createOrderRequest);
+            // Salvar as alterações no banco de dados
+            _context.SaveChanges();
 
-                    existingOrder.TotalValue += totalValue;
-
-                    _context.SaveChanges();
-
-                    return Ok(existingOrder);
-                }
-                else
-                {
-                    Order order = _orderMapping.Map(createOrderRequest);
-
-                    decimal totalValue = CalculateTotalValue(createOrderRequest);
-                    order.TotalValue = totalValue;
-
-                    _context.Orders.Add(order);
-
-                    _context.SaveChanges();
-
-                    return Ok(order);
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Ocorreu um erro: {ex.Message}");
-            }
+            // Retornar o pedido atualizado
+            return Ok(existingOrder);
         }
+        else
+        {
+            Order order = _orderMapping.Map(createOrderRequest);
+
+            bool isFirstOrder = !_context.Orders.Any
+            (o => o.RestaurantTableId == createOrderRequest.RestaurantTableId);
+
+            if (isFirstOrder)
+            {
+                order.TotalValue = 0;
+            }
+
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+
+            return Ok(order);
+        }
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, $"Ocorreu um erro: {ex.Message}");
+    }
+}
 
         private decimal CalculateTotalValue(CreateOrderRequest createOrderRequest)
         {
