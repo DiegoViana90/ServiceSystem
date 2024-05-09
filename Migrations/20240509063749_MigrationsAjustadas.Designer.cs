@@ -9,8 +9,8 @@ using ServiceSystem.Data;
 namespace ServiceSystem.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240509054900_OrderModelAlter")]
-    partial class OrderModelAlter
+    [Migration("20240509063749_MigrationsAjustadas")]
+    partial class MigrationsAjustadas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,17 +24,17 @@ namespace ServiceSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("MenuType")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("StockQuantity")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("INTEGER");
-
                     b.Property<decimal>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18,2)");
 
                     b.HasKey("Id");
 
@@ -66,7 +66,7 @@ namespace ServiceSystem.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("TotalValue")
-                        .HasColumnType("TEXT");
+                         .HasColumnType("DECIMAL(18,2)");
 
                     b.HasKey("Id");
 
