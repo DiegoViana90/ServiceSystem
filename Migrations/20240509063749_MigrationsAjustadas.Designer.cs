@@ -34,7 +34,7 @@ namespace ServiceSystem.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Value")
-                        .HasColumnType("TEXT"); // Alterado para decimal
+                        .HasColumnType("DECIMAL(18,2)");
 
                     b.HasKey("Id");
 
@@ -66,7 +66,7 @@ namespace ServiceSystem.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("TotalValue")
-                        .HasColumnType("TEXT"); // Alterado para decimal
+                         .HasColumnType("DECIMAL(18,2)");
 
                     b.HasKey("Id");
 

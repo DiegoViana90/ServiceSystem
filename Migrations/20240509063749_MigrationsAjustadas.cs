@@ -30,7 +30,7 @@ namespace ServiceSystem.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     TableNumber = table.Column<int>(type: "INTEGER", nullable: false),
-                    InService = table.Column<bool>(type: "INTEGER", nullable: false)
+                    InService = table.Column<bool>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -78,6 +78,7 @@ namespace ServiceSystem.Migrations
                 table: "Orders",
                 column: "RestaurantTableId");
 
+            
             migrationBuilder.InsertData(
                 table: "MenuItems",
                 columns: new[] { "Id", "Name", "MenuType", "StockQuantity", "Value" },
@@ -91,12 +92,12 @@ namespace ServiceSystem.Migrations
 
             migrationBuilder.InsertData(
                 table: "RestaurantTables",
-                columns: new[] { "Id", "TableNumber", "InService" },
+                columns: new[] { "Id", "InService", "TableNumber" },
                 values: new object[,]
                 {
-                    { 1, 1, 0 },
-                    { 2, 2, 0 },
-                    { 3, 3, 0 }
+                    { 1, false, 1 },
+                    { 2, false, 2 },
+                    { 3, false, 3 }
                 });
         }
 
