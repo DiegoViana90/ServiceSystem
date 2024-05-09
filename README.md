@@ -8,3 +8,5 @@ Final da solução:
 Estrutura Inicial do banco:
 ![image](https://github.com/DiegoViana90/ServiceSystem/assets/77411511/abad7a47-e317-4a79-926a-b7d491bc4c61)
 
+ Anotações de ideia:
+Futuramente irei cirar uma nova tabela, para separar os pedido da conta final, vinculando cada atentimento a uma 'fatura final'.
