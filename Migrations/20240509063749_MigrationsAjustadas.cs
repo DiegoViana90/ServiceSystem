@@ -78,7 +78,6 @@ namespace ServiceSystem.Migrations
                 table: "Orders",
                 column: "RestaurantTableId");
 
-            
             migrationBuilder.InsertData(
                 table: "MenuItems",
                 columns: new[] { "Id", "Name", "MenuType", "StockQuantity", "Value" },
@@ -88,6 +87,16 @@ namespace ServiceSystem.Migrations
                     { 2, "Pizza", 1, 30, 15.00m },
                     { 3, "Soda", 2, 30, 3.00m },
                     { 4, "Juice", 2, 30, 4.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "RestaurantTables",
+                columns: new[] { "Id", "TableNumber", "InService" },
+                values: new object[,]
+                {
+                    { 1, 1, 0 },
+                    { 2, 2, 0 },
+                    { 3, 3, 0 }
                 });
         }
 
