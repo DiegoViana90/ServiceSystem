@@ -8,20 +8,32 @@ namespace ServiceSystem.Mapping
 {
     public class OrderMapping
     {
-        public Order Map(CreateOrderRequest createOrderRequest)
+        public Order Map(CreateOrderRequest createOrderRequest, Order existingOrder = null)
         {
-            OrderItemType OrderItemType = createOrderRequest.OrderItems.Any(item => item.MenuItemId == 1 || item.MenuItemId == 2) ? OrderItemType.Food :
+            OrderItemType orderItemType = createOrderRequest.OrderItems.Any(item => item.MenuItemId == 1 || item.MenuItemId == 2) ? OrderItemType.Food :
                                    OrderItemType.Drink;
 
-            return new Order
+            if (existingOrder == null)
             {
-                RestaurantTableId = createOrderRequest.RestaurantTableId,
-                OrderItemType = OrderItemType,
-                OrderStatus = true,
-                TotalValue = 0, 
-                CreationDate = DateTime.Now, 
-                ClosedDate = null 
-            };
+                return new Order
+                {
+                    RestaurantTableId = createOrderRequest.RestaurantTableId,
+                    OrderItemType = orderItemType,
+                    OrderStatus = true,
+                    TotalValue = 0,
+                    CreationDate = DateTime.Now,
+                    ClosedDate = null
+                };
+            }
+            else
+            {
+                existingOrder.RestaurantTableId = createOrderRequest.RestaurantTableId;
+                existingOrder.OrderItemType = orderItemType;
+                existingOrder.OrderStatus = true;
+                existingOrder.CreationDate = DateTime.Now;
+                existingOrder.ClosedDate = null;
+                return existingOrder;
+            }
         }
     }
 }

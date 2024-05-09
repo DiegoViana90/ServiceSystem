@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\ServiceSystem\\ServiceSystem.csproj": {}
+    "c:\\dev\\ServiceSystem\\ServiceSystem.csproj": {}
   },
   "projects": {
-    "C:\\dev\\ServiceSystem\\ServiceSystem.csproj": {
+    "c:\\dev\\ServiceSystem\\ServiceSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\ServiceSystem\\ServiceSystem.csproj",
+        "projectUniqueName": "c:\\dev\\ServiceSystem\\ServiceSystem.csproj",
         "projectName": "ServiceSystem",
-        "projectPath": "C:\\dev\\ServiceSystem\\ServiceSystem.csproj",
+        "projectPath": "c:\\dev\\ServiceSystem\\ServiceSystem.csproj",
         "packagesPath": "C:\\Users\\Diego\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\ServiceSystem\\obj\\",
+        "outputPath": "c:\\dev\\ServiceSystem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Diego\\AppData\\Roaming\\NuGet\\NuGet.Config"

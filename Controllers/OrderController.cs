@@ -31,31 +31,49 @@ namespace ServiceSystem.Controllers
 
             try
             {
-                // Mapear os dados do pedido recebidos na solicitação HTTP para a entidade de pedido
-                Order order = _orderMapping.Map(createOrderRequest);
+                Order existingOrder = _context.Orders.FirstOrDefault(o => o.OrderStatus && o.ClosedDate == null && o.RestaurantTableId == createOrderRequest.RestaurantTableId);
 
-                // Aqui você pode implementar a lógica para calcular o total do pedido com base nos itens do pedido
-                decimal totalValue = 0;
-                foreach (var item in createOrderRequest.OrderItems)
+                if (existingOrder != null)
                 {
-                    MenuItem menuItem = _context.MenuItems.FirstOrDefault(m => m.MenuItemId == item.MenuItemId);
-                    totalValue += menuItem.Price * item.Quantity;
+                    _orderMapping.Map(createOrderRequest, existingOrder);
+
+                    decimal totalValue = CalculateTotalValue(createOrderRequest);
+
+                    existingOrder.TotalValue += totalValue;
+
+                    _context.SaveChanges();
+
+                    return Ok(existingOrder);
                 }
-                order.TotalValue = totalValue;
+                else
+                {
+                    Order order = _orderMapping.Map(createOrderRequest);
 
-                // Adicionar o pedido ao contexto do banco de dados
-                _context.Orders.Add(order);
+                    decimal totalValue = CalculateTotalValue(createOrderRequest);
+                    order.TotalValue = totalValue;
 
-                // Salvar as alterações no banco de dados
-                _context.SaveChanges();
+                    _context.Orders.Add(order);
 
-                // Retornar o pedido criado com sucesso
-                return Ok(order);
+                    _context.SaveChanges();
+
+                    return Ok(order);
+                }
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Ocorreu um erro: {ex.Message}");
             }
+        }
+
+        private decimal CalculateTotalValue(CreateOrderRequest createOrderRequest)
+        {
+            decimal totalValue = 0;
+            foreach (var item in createOrderRequest.OrderItems)
+            {
+                MenuItem menuItem = _context.MenuItems.FirstOrDefault(m => m.MenuItemId == item.MenuItemId);
+                totalValue += menuItem.Price * item.Quantity;
+            }
+            return totalValue;
         }
     }
 }
