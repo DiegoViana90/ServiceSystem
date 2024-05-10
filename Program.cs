@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -7,7 +9,11 @@ namespace ServiceSystem
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            var url = "http://localhost:5000/swagger/index.html";
+            OpenBrowser(url);
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -18,7 +24,20 @@ namespace ServiceSystem
                     webBuilder.ConfigureKestrel(options =>
                     {
                         options.ListenLocalhost(5000);
+                        options.ListenLocalhost(5001);
                     });
                 });
+
+        private static void OpenBrowser(string url)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+            catch (Exception)
+            {
+
+            }
+        }
     }
 }
