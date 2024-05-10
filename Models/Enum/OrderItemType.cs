@@ -1,6 +1,6 @@
 namespace ServiceSystem.Models.Enum 
 {
-public enum MenuType
+public enum OrderItemType
 {
     Food = 1,
     Drink = 2

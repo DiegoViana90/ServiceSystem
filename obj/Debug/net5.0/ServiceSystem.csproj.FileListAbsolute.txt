@@ -16,10 +16,14 @@ C:\dev\ServiceSystem\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\dev\ServiceSystem\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\dev\ServiceSystem\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Sqlite.dll
 C:\dev\ServiceSystem\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
+C:\dev\ServiceSystem\bin\Debug\net5.0\Microsoft.OpenApi.dll
 C:\dev\ServiceSystem\bin\Debug\net5.0\SQLitePCLRaw.batteries_v2.dll
 C:\dev\ServiceSystem\bin\Debug\net5.0\SQLitePCLRaw.nativelibrary.dll
 C:\dev\ServiceSystem\bin\Debug\net5.0\SQLitePCLRaw.core.dll
 C:\dev\ServiceSystem\bin\Debug\net5.0\SQLitePCLRaw.provider.dynamic_cdecl.dll
+C:\dev\ServiceSystem\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\dev\ServiceSystem\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\dev\ServiceSystem\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\dev\ServiceSystem\bin\Debug\net5.0\runtimes\alpine-x64\native\libe_sqlite3.so
 C:\dev\ServiceSystem\bin\Debug\net5.0\runtimes\linux-arm\native\libe_sqlite3.so
 C:\dev\ServiceSystem\bin\Debug\net5.0\runtimes\linux-arm64\native\libe_sqlite3.so
@@ -38,6 +42,7 @@ C:\dev\ServiceSystem\obj\Debug\net5.0\ServiceSystem.GeneratedMSBuildEditorConfig
 C:\dev\ServiceSystem\obj\Debug\net5.0\ServiceSystem.AssemblyInfoInputs.cache
 C:\dev\ServiceSystem\obj\Debug\net5.0\ServiceSystem.AssemblyInfo.cs
 C:\dev\ServiceSystem\obj\Debug\net5.0\ServiceSystem.csproj.CoreCompileInputs.cache
+C:\dev\ServiceSystem\obj\Debug\net5.0\ServiceSystem.MvcApplicationPartsAssemblyInfo.cs
 C:\dev\ServiceSystem\obj\Debug\net5.0\ServiceSystem.MvcApplicationPartsAssemblyInfo.cache
 C:\dev\ServiceSystem\obj\Debug\net5.0\staticwebassets\ServiceSystem.StaticWebAssets.Manifest.cache
 C:\dev\ServiceSystem\obj\Debug\net5.0\staticwebassets\ServiceSystem.StaticWebAssets.xml
