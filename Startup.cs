@@ -23,6 +23,7 @@ namespace ServiceSystem
             services.AddControllers();
             services.AddDbContext<AppDbContext>();
             services.AddScoped<OrderMapping>();   
+            services.AddScoped<MenuItemMapping>();   
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ServiceSystem API", Version = "v1" });

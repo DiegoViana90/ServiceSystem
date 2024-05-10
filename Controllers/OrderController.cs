@@ -5,6 +5,7 @@ using ServiceSystem.Data;
 using ServiceSystem.Mapping;
 using ServiceSystem.Models;
 using ServiceSystem.Models.Request;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ServiceSystem.Controllers
 {
@@ -21,87 +22,96 @@ namespace ServiceSystem.Controllers
             _orderMapping = orderMapping;
         }
 
-[HttpPost("insertOrder")]
-public IActionResult InsertOrder([FromBody] CreateOrderRequest createOrderRequest)
-{
-    if (createOrderRequest == null)
-    {
-        return BadRequest("Pedido não pode ser nulo");
-    }
-
-    try
-    {
-        Order existingOrder = _context.Orders.FirstOrDefault(o => o.OrderStatus || (o.OrderStatus == false && o.ClosedDate != null)
-            && o.TableNumber == createOrderRequest.TableNumber);
-
-        if (existingOrder != null)
+        [HttpPost("insertOrder")]
+        [SwaggerOperation(Summary = "Inserir um novo pedido.")]
+        [SwaggerResponse(200, "Pedido inserido com sucesso.", typeof(Order))]
+        [SwaggerResponse(400, "Requisição inválida.")]
+        [SwaggerResponse(500, "Erro interno do servidor.")]
+        public IActionResult InsertOrder([FromBody] CreateOrderRequest createOrderRequest)
         {
-            _orderMapping.Map(createOrderRequest, existingOrder);
-
-            decimal totalValue = CalculateTotalValue(createOrderRequest);
-            existingOrder.TotalValue += totalValue;
-
-            _context.SaveChanges();
-
-            return Ok(existingOrder);
-        }
-        else
-        {
-            Order newOrder = _orderMapping.Map(createOrderRequest);
-
-            decimal totalValue = CalculateTotalValue(createOrderRequest);
-            newOrder.TotalValue = totalValue;
-
-            _context.Orders.Add(newOrder);
-            _context.SaveChanges();
-
-            return Ok(newOrder);
-        }
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, $"Ocorreu um erro: {ex.Message}");
-    }
-}
-
-[HttpPost("closeOrder")]
-public IActionResult CloseOrder(CloseOrderRequest closeOrderRequest)
-{
-    try
-    {
-        Order existingOrder = _context.Orders.FirstOrDefault(o => o.OrderStatus || (o.OrderStatus == false && o.ClosedDate != null)
-            && o.TableNumber == closeOrderRequest.TableNumber);
-
-        if (existingOrder != null)
-        {
-            decimal bill = existingOrder.TotalValue;
-            DateTime creationDate = existingOrder.CreationDate;
-
-            existingOrder.TotalValue = 0;
-            existingOrder.OrderStatus = false;
-
-            _context.SaveChanges();
-
-            var response = new
+            if (createOrderRequest == null)
             {
-                RestaurantTableId = existingOrder.TableNumber,
-                TotalBill = bill,
-                CreationDate = creationDate,
-                ClosedDate = DateTime.Now
-            };
+                return BadRequest("Pedido não pode ser nulo");
+            }
 
-            return Ok(response);
+            try
+            {
+                Order existingOrder = _context.Orders.FirstOrDefault(o => o.OrderStatus || (o.OrderStatus == false && o.ClosedDate != null)
+                    && o.TableNumber == createOrderRequest.TableNumber);
+
+                if (existingOrder != null)
+                {
+                    _orderMapping.Map(createOrderRequest, existingOrder);
+
+                    decimal totalValue = CalculateTotalValue(createOrderRequest);
+                    existingOrder.TotalValue += totalValue;
+
+                    _context.SaveChanges();
+
+                    return Ok(existingOrder);
+                }
+                else
+                {
+                    Order newOrder = _orderMapping.Map(createOrderRequest);
+
+                    decimal totalValue = CalculateTotalValue(createOrderRequest);
+                    newOrder.TotalValue = totalValue;
+
+                    _context.Orders.Add(newOrder);
+                    _context.SaveChanges();
+
+                    return Ok(newOrder);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Ocorreu um erro: {ex.Message}");
+            }
         }
-        else
+
+        [HttpPost("closeOrder")]
+        [SwaggerOperation(Summary = "Fechar um pedido.")]
+        [SwaggerResponse(200, "Pedido fechado com sucesso.", typeof(object))]
+        [SwaggerResponse(404, "Pedido não encontrado.")]
+        [SwaggerResponse(500, "Erro interno do servidor.")]
+        public IActionResult CloseOrder(CloseOrderRequest closeOrderRequest)
         {
-            return NotFound("Nenhum pedido aberto encontrado para a mesa fornecida.");
+            try
+            {
+                Order existingOrder = _context.Orders.FirstOrDefault(o => o.OrderStatus || (o.OrderStatus == false && o.ClosedDate != null)
+                    && o.TableNumber == closeOrderRequest.TableNumber);
+
+                if (existingOrder != null)
+                {
+                    decimal bill = existingOrder.TotalValue;
+                    DateTime creationDate = existingOrder.CreationDate;
+
+                    existingOrder.TotalValue = 0;
+                    existingOrder.OrderStatus = false;
+
+                    _context.SaveChanges();
+
+                    var response = new
+                    {
+                        RestaurantTableId = existingOrder.TableNumber,
+                        TotalBill = bill,
+                        CreationDate = creationDate,
+                        ClosedDate = DateTime.Now
+                    };
+
+                    return Ok(response);
+                }
+                else
+                {
+                    return NotFound("Nenhum pedido aberto encontrado para a mesa fornecida.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Ocorreu um erro: {ex.Message}");
+            }
         }
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, $"Ocorreu um erro: {ex.Message}");
-    }
-}
+
         private decimal CalculateTotalValue(CreateOrderRequest createOrderRequest)
         {
             decimal totalValue = 0;

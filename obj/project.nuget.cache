@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "F2b/uAk7r/tM8utLdRhvYJgFqm7SybCNhyGeTRfEK3Wvx+Vam7yu+HAejtQaOdRpe4Vv7NrJUB3V5wZ/tiRC3Q==",
+  "dgSpecHash": "XWoX1AwqLPSB0lVSrz42B78Uiq9pYFiO0FCnQpf/lr0FY2vGr/YJSkcngqP6PlYrTFwE4vwOSmaXFIOSJBzCmw==",
   "success": true,
   "projectFilePath": "c:\\dev\\ServiceSystem\\ServiceSystem.csproj",
   "expectedPackageFiles": [
@@ -32,6 +32,7 @@
     "C:\\Users\\Diego\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.0.4\\sqlitepclraw.lib.e_sqlite3.2.0.4.nupkg.sha512",
     "C:\\Users\\Diego\\.nuget\\packages\\sqlitepclraw.provider.dynamic_cdecl\\2.0.4\\sqlitepclraw.provider.dynamic_cdecl.2.0.4.nupkg.sha512",
     "C:\\Users\\Diego\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\Diego\\.nuget\\packages\\swashbuckle.aspnetcore.annotations\\5.6.3\\swashbuckle.aspnetcore.annotations.5.6.3.nupkg.sha512",
     "C:\\Users\\Diego\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\Diego\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
     "C:\\Users\\Diego\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",

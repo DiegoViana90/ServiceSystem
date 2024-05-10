@@ -7,7 +7,6 @@ namespace ServiceSystem.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            // Criar as tabelas
             migrationBuilder.CreateTable(
                 name: "MenuItems",
                 columns: table => new
@@ -91,7 +90,6 @@ namespace ServiceSystem.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            // Adicionar os índices
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_MenuItemId",
                 table: "OrderItems",
@@ -107,7 +105,6 @@ namespace ServiceSystem.Migrations
                 table: "RestaurantTables",
                 column: "OrderId");
 
-            // Adicionar os inserts de dados
             migrationBuilder.InsertData(
                 table: "MenuItems",
                 columns: new[] { "Name", "Price", "OrderItemType" },
