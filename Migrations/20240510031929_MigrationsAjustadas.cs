@@ -1,12 +1,13 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace ServiceSystem.Migrations
 {
-    public partial class MigrationsRefatorada : Migration
+    public partial class MigrationsAjustadas : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            // Criar as tabelas
             migrationBuilder.CreateTable(
                 name: "MenuItems",
                 columns: table => new
@@ -14,25 +15,12 @@ namespace ServiceSystem.Migrations
                     MenuItemId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Price = table.Column<decimal>(type: "REAL", nullable: false),
+                    Price = table.Column<double>(type: "REAL", nullable: false), 
                     OrderItemType = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MenuItems", x => x.MenuItemId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RestaurantTables",
-                columns: table => new
-                {
-                    RestaurantTableId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    TableNumber = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RestaurantTables", x => x.RestaurantTableId);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,21 +30,15 @@ namespace ServiceSystem.Migrations
                     OrderId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     OrderStatus = table.Column<bool>(type: "INTEGER", nullable: false),
-                    RestaurantTableId = table.Column<int>(type: "INTEGER", nullable: false),
+                    TableNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TotalValue = table.Column<decimal>(type: "REAL", nullable: false),
+                    TotalValue = table.Column<double>(type: "REAL", nullable: false),
                     ClosedDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     OrderItemType = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.OrderId);
-                    table.ForeignKey(
-                        name: "FK_Orders_RestaurantTables_RestaurantTableId",
-                        column: x => x.RestaurantTableId,
-                        principalTable: "RestaurantTables",
-                        principalColumn: "RestaurantTableId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,7 +50,7 @@ namespace ServiceSystem.Migrations
                     OrderId = table.Column<int>(type: "INTEGER", nullable: false),
                     MenuItemId = table.Column<int>(type: "INTEGER", nullable: false),
                     OrderItemType = table.Column<int>(type: "INTEGER", nullable: false),
-                    ItemPrice = table.Column<decimal>(type: "REAL", nullable: false),
+                    ItemPrice = table.Column<double>(type: "REAL", nullable: false), 
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -88,6 +70,28 @@ namespace ServiceSystem.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "RestaurantTables",
+                columns: table => new
+                {
+                    RestaurantTableId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TableNumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    InService = table.Column<bool>(type: "INTEGER", nullable: false),
+                    OrderId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RestaurantTables", x => x.RestaurantTableId);
+                    table.ForeignKey(
+                        name: "FK_RestaurantTables_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            // Adicionar os índices
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_MenuItemId",
                 table: "OrderItems",
@@ -99,11 +103,11 @@ namespace ServiceSystem.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_RestaurantTableId",
-                table: "Orders",
-                column: "RestaurantTableId",
-                unique: true);
+                name: "IX_RestaurantTables_OrderId",
+                table: "RestaurantTables",
+                column: "OrderId");
 
+            // Adicionar os inserts de dados
             migrationBuilder.InsertData(
                 table: "MenuItems",
                 columns: new[] { "Name", "Price", "OrderItemType" },
@@ -126,18 +130,18 @@ namespace ServiceSystem.Migrations
 
             migrationBuilder.InsertData(
                 table: "RestaurantTables",
-                columns: new[] { "TableNumber" },
-                values: new object[] { 1 });
+                columns: new[] { "TableNumber", "InService" },
+                values: new object[] { 1, false });
 
             migrationBuilder.InsertData(
                 table: "RestaurantTables",
-                columns: new[] { "TableNumber" },
-                values: new object[] { 2 });
+                columns: new[] { "TableNumber", "InService" },
+                values: new object[] { 2, false });
 
             migrationBuilder.InsertData(
                 table: "RestaurantTables",
-                columns: new[] { "TableNumber" },
-                values: new object[] { 3 });
+                columns: new[] { "TableNumber", "InService" },
+                values: new object[] { 3, false });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -146,13 +150,13 @@ namespace ServiceSystem.Migrations
                 name: "OrderItems");
 
             migrationBuilder.DropTable(
+                name: "RestaurantTables");
+
+            migrationBuilder.DropTable(
                 name: "MenuItems");
 
             migrationBuilder.DropTable(
                 name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "RestaurantTables");
         }
     }
 }

@@ -5,7 +5,7 @@ namespace ServiceSystem.Models.Request
 {
     public class CreateOrderRequest
     {
-        public int RestaurantTableId { get; set; }
+        public int TableNumber { get; set; }
         public List<OrderItemRequest> OrderItems { get; set; }
     }
 

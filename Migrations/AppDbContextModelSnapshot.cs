@@ -54,16 +54,13 @@ namespace ServiceSystem.Migrations
                     b.Property<bool>("OrderStatus")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("RestaurantTableId")
+                    b.Property<int>("TableNumber")
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("TotalValue")
                         .HasColumnType("TEXT");
 
                     b.HasKey("OrderId");
-
-                    b.HasIndex("RestaurantTableId")
-                        .IsUnique();
 
                     b.ToTable("Orders");
                 });
@@ -104,23 +101,20 @@ namespace ServiceSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("InService")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("TableNumber")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("RestaurantTableId");
 
+                    b.HasIndex("OrderId");
+
                     b.ToTable("RestaurantTables");
-                });
-
-            modelBuilder.Entity("Order", b =>
-                {
-                    b.HasOne("RestaurantTable", "RestaurantTable")
-                        .WithOne("Order")
-                        .HasForeignKey("Order", "RestaurantTableId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RestaurantTable");
                 });
 
             modelBuilder.Entity("OrderItem", b =>
@@ -142,14 +136,18 @@ namespace ServiceSystem.Migrations
                     b.Navigation("Order");
                 });
 
+            modelBuilder.Entity("RestaurantTable", b =>
+                {
+                    b.HasOne("Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Order", b =>
                 {
                     b.Navigation("OrderItems");
-                });
-
-            modelBuilder.Entity("RestaurantTable", b =>
-                {
-                    b.Navigation("Order");
                 });
 #pragma warning restore 612, 618
         }
