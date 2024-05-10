@@ -5,6 +5,7 @@ using ServiceSystem.Data;
 using ServiceSystem.Mapping;
 using ServiceSystem.Models;
 using ServiceSystem.Models.Request;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ServiceSystem.Controllers
 {
@@ -22,6 +23,10 @@ namespace ServiceSystem.Controllers
         }
 
         [HttpPost("insertOrder")]
+        [SwaggerOperation(Summary = "Inserir um novo pedido.")]
+        [SwaggerResponse(200, "Pedido inserido com sucesso.", typeof(Order))]
+        [SwaggerResponse(400, "Requisição inválida.")]
+        [SwaggerResponse(500, "Erro interno do servidor.")]
         public IActionResult InsertOrder([FromBody] CreateOrderRequest createOrderRequest)
         {
             if (createOrderRequest == null)
@@ -65,6 +70,10 @@ namespace ServiceSystem.Controllers
         }
 
         [HttpPost("closeOrder")]
+        [SwaggerOperation(Summary = "Fechar um pedido.")]
+        [SwaggerResponse(200, "Pedido fechado com sucesso.", typeof(object))]
+        [SwaggerResponse(404, "Pedido não encontrado.")]
+        [SwaggerResponse(500, "Erro interno do servidor.")]
         public IActionResult CloseOrder(CloseOrderRequest closeOrderRequest)
         {
             try

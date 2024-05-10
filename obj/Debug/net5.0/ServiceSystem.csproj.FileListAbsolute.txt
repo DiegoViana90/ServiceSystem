@@ -53,3 +53,4 @@ C:\dev\ServiceSystem\obj\Debug\net5.0\ServiceSystem.dll
 C:\dev\ServiceSystem\obj\Debug\net5.0\ref\ServiceSystem.dll
 C:\dev\ServiceSystem\obj\Debug\net5.0\ServiceSystem.pdb
 C:\dev\ServiceSystem\obj\Debug\net5.0\ServiceSystem.genruntimeconfig.cache
+c:\dev\ServiceSystem\bin\Debug\net5.0\Swashbuckle.AspNetCore.Annotations.dll

@@ -5,6 +5,7 @@ using ServiceSystem.Data;
 using ServiceSystem.Mapping;
 using ServiceSystem.Models;
 using ServiceSystem.Models.Request;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ServiceSystem.Controllers
 {
@@ -22,6 +23,10 @@ namespace ServiceSystem.Controllers
         }
 
         [HttpPost("insertMenuItem")]
+        [SwaggerOperation(Summary = "Inserir um novo item de menu.")]
+        [SwaggerResponse(200, "OK", typeof(MenuItem))]
+        [SwaggerResponse(400, "BadRequest", typeof(string))]
+        [SwaggerResponse(500, "InternalServerError", typeof(string))]
         public IActionResult InsertMenuItem([FromBody] CreateMenuItemRequest createMenuItemRequest)
         {
             if (createMenuItemRequest == null)
@@ -44,6 +49,11 @@ namespace ServiceSystem.Controllers
         }
 
         [HttpPut("updateMenuItem")]
+        [SwaggerOperation(Summary = "Atualizar um item de menu existente.")]
+        [SwaggerResponse(200, "OK", typeof(MenuItem))]
+        [SwaggerResponse(400, "BadRequest", typeof(string))]
+        [SwaggerResponse(404, "NotFound", typeof(string))]
+        [SwaggerResponse(500, "InternalServerError", typeof(string))]
         public IActionResult UpdateMenuItem(int id, [FromBody] UpdateMenuItemRequest updateMenuItemRequest)
         {
             try
