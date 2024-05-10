@@ -18,6 +18,7 @@ namespace ServiceSystem
                     webBuilder.ConfigureKestrel(options =>
                     {
                         options.ListenLocalhost(5000);
+                        options.ListenLocalhost(5001);
                     });
                 });
     }
