@@ -66,7 +66,7 @@ Quando terminar de usar o aplicativo, você pode interrompê-lo pressionando Ctr
 
 ## **Direcionamento no uso da API:**
 
-Método: **InsertOrder**
+- Método: **InsertOrder**
 
 use a requisição para solicitar atendimento para mesa específica; (Inicialmente adicionei 3 mesas ao restaurante)
 
@@ -80,7 +80,7 @@ use a requisição para solicitar atendimento para mesa específica; (Inicialmen
   ]
 }
 
-Método: **CloseOrder**
+- Método: **CloseOrder**
 
 use a requisição para solicitar o **encerramento** para mesa específica;
 
@@ -90,7 +90,7 @@ use a requisição para solicitar o **encerramento** para mesa específica;
 }
 
 
-Método: **InsertMenuItem** 
+- Método: **InsertMenuItem** 
 
 use a requisição para **incluir** na tabela MenuItem um novo item ao cardápio (OrderItemType: usar 1 para comida e 2 para bebida);
 
@@ -101,7 +101,7 @@ use a requisição para **incluir** na tabela MenuItem um novo item ao cardápio
   "orderItemType": 1
 }
 
-Método: **UpdateMenuItem**
+- Método: **UpdateMenuItem**
 
  use a requisição para **atualizar** nome, preço ou tipo na tabela MenuItem de um item já existente (OrderItemType: usar 1 para comida e 2 para bebida);
 
@@ -112,6 +112,6 @@ Método: **UpdateMenuItem**
   "orderItemType": 1
 }
 
-Método: **GetMenuItems**
+- Método: **GetMenuItems**
 
  use a requisição para **Buscar** "Cardápio" do restaurante;
