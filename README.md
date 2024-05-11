@@ -14,6 +14,8 @@ Serviço de Restaurante desenvolvido em .NET 5.0 com Entity Framework utilizando
 
 Futuramente, irei criar uma nova tabela para separar os pedidos da conta final, vinculando cada atendimento a uma 'fatura final'.
 
+Branch feature/0006 da início ao frontEnd
+
 ## Guia de Execução
 
 Este guia fornece instruções passo a passo para executar o ServiceSystem em seu ambiente local.
