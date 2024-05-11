@@ -1,6 +1,6 @@
 # ServiceSystem
 
-Serviço de Restaurante desenvolvido em .NET 5.0 com Entity Framework utilizando SQLite e estrutura MVC.
+Serviço de Restaurante desenvolvido em .NET 5.0 com Entity Framework utilizando SQLite (banco armazenado em cache) e estrutura MVC.
 
 ## Final da Solução
 
@@ -39,7 +39,7 @@ cd ServiceSystem
 
 ## **Passo 3: Executar o Aplicativo**
 
-Execute o aplicativo usando o comando dotnet run ou F5;
+Execute o aplicativo usando o comando dotnet run ou F5, usando Visual Studio OU Visual Studio Code;
 
 dotnet run
 
