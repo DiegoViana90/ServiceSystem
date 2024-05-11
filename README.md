@@ -81,6 +81,7 @@ use a requisição para solicitar atendimento para mesa específica; (Inicialmen
 }
 
 Método: **CloseOrder**
+
 use a requisição para solicitar o **encerramento** para mesa específica;
 
 
@@ -89,7 +90,9 @@ use a requisição para solicitar o **encerramento** para mesa específica;
 }
 
 
-Método: **InsertMenuItem** use a requisição para **incluir** na tabela MenuItem um novo item ao cardápio (OrderItemType: usar 1 para comida e 2 para bebida);
+Método: **InsertMenuItem** 
+
+use a requisição para **incluir** na tabela MenuItem um novo item ao cardápio (OrderItemType: usar 1 para comida e 2 para bebida);
 
 
 {
@@ -98,7 +101,9 @@ Método: **InsertMenuItem** use a requisição para **incluir** na tabela MenuIt
   "orderItemType": 1
 }
 
-Método: **UpdateMenuItem** use a requisição para **atualizar** nome, preço ou tipo na tabela MenuItem de um item já existente (OrderItemType: usar 1 para comida e 2 para bebida);
+Método: **UpdateMenuItem**
+
+ use a requisição para **atualizar** nome, preço ou tipo na tabela MenuItem de um item já existente (OrderItemType: usar 1 para comida e 2 para bebida);
 
 
 {
@@ -107,4 +112,6 @@ Método: **UpdateMenuItem** use a requisição para **atualizar** nome, preço o
   "orderItemType": 1
 }
 
-Método: **GetMenuItems** use a requisição para **Buscar** "Cardápio" do restaurante;
+Método: **GetMenuItems**
+
+ use a requisição para **Buscar** "Cardápio" do restaurante;
