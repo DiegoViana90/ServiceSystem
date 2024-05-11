@@ -80,5 +80,22 @@ namespace ServiceSystem.Controllers
                 return StatusCode(500, $"Ocorreu um erro: {ex.Message}");
             }
         }
+        
+        [HttpGet("getMenuItems")]
+        [SwaggerOperation(Summary = "Obter todos os itens de menu.")]
+        [SwaggerResponse(200, "OK", typeof(MenuItem[]))]
+        [SwaggerResponse(500, "InternalServerError", typeof(string))]
+        public IActionResult GetMenuItems()
+        {
+            try
+            {
+                var menuItems = _context.MenuItems.ToArray();
+                return Ok(menuItems);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Ocorreu um erro: {ex.Message}");
+            }
+        }
     }
 }
