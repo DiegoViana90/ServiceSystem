@@ -12,7 +12,9 @@ Serviço de Restaurante desenvolvido em .NET 5.0 com Entity Framework utilizando
 
 ## Anotações de Ideia
 
-Futuramente, irei criar uma nova tabela para separar os pedidos da conta final, vinculando cada atendimento a uma 'fatura final'.
+- Futuramente, irei criar uma nova tabela para separar os pedidos da conta final, vinculando cada atendimento a uma 'fatura final'.
+- adicionar tempo de prepararo das comidas, para retornar essa informação para o cliente.
+
 
 Branch feature/0006 da início ao frontEnd
 
